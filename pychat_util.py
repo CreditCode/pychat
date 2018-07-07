@@ -23,7 +23,7 @@ class Hall:
         self.room_player_map = {} # {playerName: roomName}
 
     def welcome_new(self, new_player):
-        new_player.socket.sendall(b'Welcome to pychat.\nPlease tell us your name:\n')
+        new_player.socket.sendall(b'Welcome to chat relay.\nPlease tell us your name:\n')
 
     def list_rooms(self, player):
         
@@ -42,9 +42,7 @@ class Hall:
         instructions = b'Instructions:\n'\
             + b'[<list>] to list all rooms\n'\
             + b'[<join> room_name] to join/create/switch to a room\n' \
-            + b'[<manual>] to show instructions\n' \
             + b'[<quit>] to quit\n' \
-            + b'Otherwise start typing and enjoy!' \
             + b'\n'
 
         print(player.name + " says: " + msg)
@@ -77,9 +75,6 @@ class Hall:
 
         elif "<list>" in msg:
             self.list_rooms(player) 
-
-        elif "<manual>" in msg:
-            player.socket.sendall(instructions)
         
         elif "<quit>" in msg:
             player.socket.sendall(QUIT_STRING.encode())
